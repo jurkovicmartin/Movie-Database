@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Movies database</title>
+</head>
+<body>
+    <h1>Movies List</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Rating</th>
+        </tr>
+        {% for movie in movies %}
+        <tr>
+            <td>{{ movie[1] }}</td>
+            <td>{{ movie[2] }}</td>
+            <td>{{ movie[3] }}</td>
+        {% endfor %}
+        </tr>
+    </table>
+
+    <a href="{{ url_for('views.add') }}" class="button">Add Movie</a>
+</body>
+</html>

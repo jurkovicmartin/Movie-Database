@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Add Movie</title>
+</head>
+<body>
+    <h1>Add Movie</h1>
+    <form action="{{ url_for('views.add') }}" method="post">
+        <input type="text" name="title" placeholder="Movie title" required>
+        <input type="number" name="year" placeholder="Year" required>
+        <input type="number" name="rating" placeholder="Rating" required>
+        <button type="submit">Add Movie</button>
+    </form>
+
+    <a href="{{ url_for('views.show') }}" class="button">Show Movies List</a>
+</body>
+</html>
