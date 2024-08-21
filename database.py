@@ -7,9 +7,10 @@ import sqlite3
 # connection.execute("""
 # CREATE TABLE movies(
 #              id     INTEGER     PRIMARY KEY     AUTOINCREMENT,
-#              title  TEXT                    NOT NULL,
-#              year   INT                     NOT NULL,
-#              rating FLOAT                   NOT NULL
+#              title  VARCHAR                    NOT NULL,
+#              year   SMALLINT                     NOT NULL,
+#              rating FLOAT                   NOT NULL,
+#              comment VARCHAR
 #              )
 #              """)
 # connection.close()

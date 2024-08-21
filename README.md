@@ -2,7 +2,8 @@
 
 Notes:
 
-- add editing / deleting
-- add watched column (year + month)
-- comments
-- checking input values (rating, year, ...)
+- delete confirm question
+- successful edit / delete notification
+- same films handling (name = year)
+- incode comments
+- advanced displaying (sorting, ordering, finding, ...)

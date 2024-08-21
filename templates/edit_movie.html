@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>Add Movie</title>
+    <title>Edit Movie</title>
 </head>
 <body>
-    <h1>Add Movie</h1>
-    <form action="{{ url_for('views.add') }}" method="post">
+    <h1>Edit Movie</h1>
+    <form action="{{ url_for('views.edit', id=id) }}" method="post">
         <input type="text" name="title" placeholder="Movie Title" value="{{ title if title }}" required>
         <input type="number" name="year" placeholder="Year" value="{{ year if year }}" required>
         <input type="number" name="rating" step="0.1" placeholder="Rating" value="{{ rating if rating }}" required>
         <input type="text" name="comment" placeholder="Commentary" value="{{ comment if comment }}">
-        <button type="submit">Add Movie</button>
+        <button type="submit">Edit Movie</button>
     </form>
 
     {% if error %}
         <p class="error">{{ error }}</p>
     {% endif %}
+
+    <a href="{{ url_for('views.delete', id=id) }}" class="button">Delete this movie</a>
 
     <a href="{{ url_for('views.show') }}" class="button">Show Movies List</a>
 </body>

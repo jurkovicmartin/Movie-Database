@@ -4,6 +4,10 @@ table, th, td{
     padding: 5px;
 }
 
+.error{
+    color: red;
+}
+
 .button {
     background-color: white;
     border: solid;
@@ -20,3 +24,16 @@ table, th, td{
 .button:hover {
     background-color: gray;
 }
+
+.ico-button {
+    height: 25px;
+    width: 25px;
+}
+
+/* Hide arrows in number input field */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
