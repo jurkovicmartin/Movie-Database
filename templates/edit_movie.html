@@ -16,12 +16,13 @@
         <button type="submit">Edit Movie</button>
     </form>
 
+    <!-- Input value error -->
     {% if error %}
         <p class="error">{{ error }}</p>
     {% endif %}
 
     <a href="{{ url_for('views.delete', id=id) }}" class="button">Delete this movie</a>
 
-    <a href="{{ url_for('views.show') }}" class="button">Show Movies List</a>
+    <a href="{{ url_for('views.show') }}" class="button">Go Back</a>
 </body>
 </html>

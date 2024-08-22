@@ -8,6 +8,12 @@
 </head>
 <body>
     <h1>Movies List</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p class="message">{{ messages[0] }}</p>
+        {% endif %}
+    {% endwith %}
+
     <table>
         <tr>
             <th>Title</th>

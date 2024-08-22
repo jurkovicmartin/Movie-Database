@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 from database import get_database
 from functions import check_rating, check_year
@@ -13,6 +13,7 @@ def show():
     cursor = db.cursor()
     cursor.execute("SELECT * FROM movies")
     movies = cursor.fetchall()
+    
     return render_template("index.html", movies=movies)
 
 
@@ -39,9 +40,22 @@ def add():
         else: pass
 
         db = get_database()
+
+        # Handle adding same film multiple times
+        cursor = db.cursor()
+        cursor.execute("SELECT title, year FROM movies")
+        data = cursor.fetchall()
+        titles = [title.lower() for title, _ in data]
+        years = [year for _, year in data]
+
+        if title.lower() in titles and int(year) in years:
+            return render_template("add_movie.html", error=f"Movie {title} from {year} already exists.", title=None, year=None, rating=rating, comment=comment)
+
+
         db.execute("INSERT INTO movies (title, year, rating, comment) VALUES (?, ?, ?, ?)", (title, year, rating, comment))
         db.commit()
 
+        flash(f"{title} movie has been added.", "info")
         return redirect(url_for("views.show"))
     
     return render_template("add_movie.html", error=None, title=None, year=None, rating=None, comment=None)
@@ -78,16 +92,34 @@ def edit(id):
         else: pass
 
         db = get_database()
+
+        # Handle adding same film multiple times
+        cursor = db.cursor()
+        cursor.execute("SELECT title, year FROM movies")
+        data = cursor.fetchall()
+        titles = [title.lower() for title, _ in data]
+        years = [year for _, year in data]
+
+        if title.lower() in titles and int(year) in years:
+            return render_template("edit_movie.html", error=f"Movie {title} from {year} already exists.", title=None, year=None, rating=rating, comment=comment)
+
         db.execute("UPDATE movies SET title=?, year=?, rating=?, comment=? WHERE id == ?", (title, year, rating, comment, id))
         db.commit()
 
+        flash(f"{title} movie has been edited.", "info")
         return redirect(url_for("views.show"))
     
 
 @views.route("/delete/<id>")
 def delete(id):
     db = get_database()
-    db.execute("DELETE FROM movies WHERE id == ?", (id))
+    cursor = db.cursor()
+
+    cursor.execute("SELECT title FROM movies WHERE id == ?", (id,))
+    title = cursor.fetchone()
+
+    db.execute("DELETE FROM movies WHERE id == ?", (id,))
     db.commit()
 
+    flash(f"{title[0]} movie has been deleted.")
     return redirect(url_for("views.show"))
