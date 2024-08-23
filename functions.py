@@ -23,8 +23,29 @@ def check_rating(rating: float) -> str|None:
     """
     if rating < 0:
         return "Rating cannot be negative."
-    elif rating > 5:
-        return "Rating cannot be more than 5."
+    elif rating > 10:
+        return "Rating cannot be more than 10."
     else:
         return None
     
+
+def get_select_sql_query(sort: str) -> str:
+    """
+    Returns SQL query based on input sort.
+
+    Note: "by_title" sort return query with ?.
+    """
+    if sort == "default":
+        return "SELECT * FROM movies"
+    elif sort == "year_ascend":
+        return "SELECT * FROM movies ORDER BY year ASC"
+    elif sort == "year_descend":
+        return "SELECT * FROM movies ORDER BY year DESC"
+    elif sort == "rating_ascend":
+        return "SELECT * FROM movies ORDER BY rating ASC"
+    elif sort == "rating_descend":
+        return "SELECT * FROM movies ORDER BY rating DESC"
+    elif sort == "by_title":
+        return "SELECT * FROM movies WHERE title LIKE ?"
+    else:
+        raise Exception("Unexpected error")

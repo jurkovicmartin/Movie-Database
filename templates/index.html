@@ -8,11 +8,31 @@
 </head>
 <body>
     <h1>Movies List</h1>
+    <!-- Adding / editing / deleting info message -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <p class="message">{{ messages[0] }}</p>
         {% endif %}
     {% endwith %}
+
+    <!-- Sorting combo box -->
+     <form action="{{ url_for('views.show') }}", method="POST">
+        <select id="sort" name="sort">
+            <option value="default" {% if selected_sort == "default" %}selected{% endif %}>Default</option>
+            <option value="year_ascend" {% if selected_sort == "year_ascend" %}selected{% endif %}>By Year Ascending</option>
+            <option value="year_descend" {% if selected_sort == "year_descend" %}selected{% endif %}>By Year Descending</option>
+            <option value="rating_ascend" {% if selected_sort == "rating_ascend" %}selected{% endif %}>By Rating Ascending</option>
+            <option value="rating_descend" {% if selected_sort == "rating_descend" %}selected{% endif %}>By Rating Descending</option>
+            <option value="by_title" {% if selected_sort == "by_title" %}selected{% endif %}>By Title</option>
+        </select>
+
+        <input type="text" id="additional_field" name="title" placeholder="Title to be found" value="{{ title if title }}"
+        {% if selected_sort != "by_title" %}
+            style="display: none;" required
+        {% endif %}>
+
+        <button type="submit">Sort</button>
+     </form>
 
     <table>
         <tr>
@@ -28,6 +48,7 @@
             <td>{{ movie[3] }}</td>
             <td>{{ movie[4] }}</td>
             <td>
+                <!-- Edit button -->
                 <a href="{{ url_for('views.edit', id=movie[0]) }}">
                     <img src="{{ url_for('static', filename='img/ico_edit.png' )}}" class="ico-button" id="{{ movie[0] }}">
                 </a>
@@ -37,6 +58,23 @@
     </table>
 
     <a href="{{ url_for('views.add') }}" class="button">Add Movie</a>
+
+
+
+    <script>
+        document.getElementById("sort").onchange = function() {
+            var selected_option = this.value;
+            var additional_input = document.getElementById("additional_field");
+    
+            if (selected_option === "by_title") {
+                additional_input.style.display = "block";
+                additional_input.setAttribute("required", "");
+            } else {
+                additional_input.style.display = "none";
+                additional_input.removeAttribute("required");
+            }
+        };
+    </script>
     
 </body>
 </html>

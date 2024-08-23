@@ -4,6 +4,7 @@ from views import views
 from database import close_database
 
 app = Flask(__name__)
+# Key bcs of using flask flash (session)
 app.secret_key = b"hzdb5kpi4U"
 
 app.register_blueprint(views, url_prefix="/")

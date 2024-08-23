@@ -4,4 +4,5 @@ Notes:
 
 - delete confirm question
 - incode comments
-- advanced displaying (sorting, ordering, finding, ...)
+- think of a lot of items
+- fix editing (multiple same movies)
