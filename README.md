@@ -21,6 +21,8 @@ Database was made in sqlite.
 
 Web development was done with flask.
 
+When started application runs at localhost address on port 8000.
+
 **Database structure:**
 
 | id                    | title   | year     | rating | comment |
