@@ -4,7 +4,7 @@ from views import views
 from database import close_database
 
 app = Flask(__name__)
-# Key bcs of using flask flash (session)
+# Key because of using flask flash (session)
 app.secret_key = b"hzdb5kpi4U"
 
 app.register_blueprint(views, url_prefix="/")
@@ -16,4 +16,4 @@ def teardown_database(exception):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    app.run(port=8000)

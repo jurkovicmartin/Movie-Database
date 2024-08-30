@@ -21,8 +21,44 @@
         <p class="error">{{ error }}</p>
     {% endif %}
 
-    <a href="{{ url_for('views.delete', id=id) }}" class="button">Delete this movie</a>
+    <a href="{{ url_for('views.delete', id=id) }}" class="button" onclick="return confirmDelete(this);">Delete this movie</a>
 
     <a href="{{ url_for('views.show') }}" class="button">Go Back</a>
+
+    <!-- Delete confirm modal -->
+    <div id="confirmModal">
+        <p>Are you sure you want to delete this movie?</p>
+        <button id="confirmDeleteBtn">Yes</button>
+        <button id="cancelBtn">No</button>
+    </div>
+    
+    <div id="overlay"></div>
+      
+
+    <script>
+        function confirmDelete(link) {
+          // Show the modal and overlay
+          document.getElementById('confirmModal').style.display = 'block';
+          document.getElementById('overlay').style.display = 'block';
+      
+          // Get the delete URL from the link
+          var deleteUrl = link.href;
+      
+          // When the user clicks "Yes"
+          document.getElementById('confirmDeleteBtn').onclick = function() {
+            window.location.href = deleteUrl;
+          };
+      
+          // When the user clicks "No"
+          document.getElementById('cancelBtn').onclick = function() {
+            document.getElementById('confirmModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+          };
+      
+          // Prevent the default link action
+          return false;
+        }
+    </script>
+      
 </body>
 </html>
